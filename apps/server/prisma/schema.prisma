@@ -1,0 +1,428 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/global/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+enum InterviewSourcePlatforms {
+  zoom
+  zoomV2
+  upload
+  recall
+}
+
+model InterviewSummary {
+  id            String    @id @default(uuid())
+  text          String
+  generatedText String    @default("")
+  touched       Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  interview     Interview @relation(fields: [interviewId], references: [id])
+  interviewId   String    @unique
+}
+
+model InterviewSource {
+  id          Int                      @id @default(autoincrement())
+  sourceId    String
+  platform    InterviewSourcePlatforms
+  interview   Interview                @relation(fields: [interviewId], references: [id])
+  interviewId String                   @unique
+  createdAt   DateTime                 @default(now())
+  updatedAt   DateTime                 @default(now()) @updatedAt
+}
+
+model Interview {
+  id                  String               @id @default(uuid())
+  name                String               @default("Untitled Interview")
+  recording           Video?               @relation(fields: [recordingId], references: [id])
+  recordingId         String?              @unique
+  transcript          Transcript?
+  highlights          Highlight[]
+  workspaceId         String
+  workspace           Workspace            @relation(fields: [workspaceId], references: [id])
+  source              InterviewSource?
+  summary             InterviewSummary?
+  creator             User                 @relation(fields: [creatorId], references: [id])
+  creatorId           String
+  archived            Boolean              @default(false)
+  date                DateTime             @default(now())
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @default(now()) @updatedAt
+  recordingError      String?
+  suggestedHighlights SuggestedHighlight[]
+  project             Project?             @relation(fields: [projectId], references: [id])
+  projectId           String?
+}
+
+model Video {
+  id            String         @id @default(uuid())
+  interview     Interview?
+  highlight     Highlight?
+  startTime     DateTime       @default(now())
+  editableAsset EditableAsset?
+  playableAsset PlayableAsset?
+  recorder      Recorder?      @relation(fields: [recorderId], references: [id])
+  recorderId    String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @default(now()) @updatedAt
+}
+
+enum EditableAssetStatus {
+  processing
+  completed
+}
+
+model EditableAsset {
+  id         String              @id @default(uuid())
+  video      Video               @relation(fields: [videoId], references: [id])
+  videoId    String              @unique
+  status     EditableAssetStatus
+  playbackId String?
+  isSigned   Boolean             @default(false)
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @default(now()) @updatedAt
+}
+
+enum StoragePlatforms {
+  s3
+  local
+  mux
+}
+
+model PlayableAsset {
+  id        String           @id @default(uuid())
+  video     Video            @relation(fields: [videoId], references: [id])
+  videoId   String           @unique
+  platform  StoragePlatforms
+  isSigned  Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @default(now()) @updatedAt
+}
+
+model Transcript {
+  id                 String              @id @default(uuid())
+  version            Int                 @default(autoincrement())
+  interview          Interview?          @relation(fields: [interviewId], references: [id])
+  interviewId        String?             @unique
+  highlight          Highlight?
+  suggestedHighlight SuggestedHighlight?
+  isPending          Boolean
+  words              TranscriptWord[]
+  groups             TranscriptGroup[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @default(now()) @updatedAt
+}
+
+model TranscriptGroup {
+  transcript   Transcript       @relation(fields: [transcriptId], references: [id])
+  words        TranscriptWord[]
+  text         String
+  transcriptId String
+  groupNumber  Int
+  speakerId    String
+  speaker      Participant      @relation(fields: [speakerId], references: [id])
+
+  @@id([transcriptId, groupNumber])
+}
+
+model TranscriptWord {
+  transcript      Transcript      @relation(fields: [transcriptId], references: [id])
+  group           TranscriptGroup @relation(fields: [transcriptId, groupNumber], references: [transcriptId, groupNumber])
+  transcriptId    String
+  groupNumber     Int
+  wordNumber      Int
+  start           Float
+  end             Float
+  text            String
+  startWordRanges WordRange[]     @relation("startWord")
+  endWordRanges   WordRange[]     @relation("endWord")
+
+  @@id([transcriptId, groupNumber, wordNumber])
+}
+
+model WordRange {
+  id                 String              @id @default(uuid())
+  startWord          TranscriptWord      @relation(name: "startWord", fields: [transcriptId, startGroupNumber, startWordNumber], references: [transcriptId, groupNumber, wordNumber])
+  transcriptId       String
+  startWordNumber    Int
+  startGroupNumber   Int
+  endWord            TranscriptWord      @relation(name: "endWord", fields: [transcriptId, endGroupNumber, endWordNumber], references: [transcriptId, groupNumber, wordNumber])
+  endWordNumber      Int
+  endGroupNumber     Int
+  highlight          Highlight?
+  suggestedHighlight SuggestedHighlight?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @default(now()) @updatedAt
+}
+
+model Highlight {
+  id                 String              @id @default(uuid())
+  highlightedRange   WordRange?          @relation(references: [id], fields: [highlightedRangeId])
+  highlightedRangeId String?             @unique
+  timestamp          DateTime?
+  interview          Interview           @relation(references: [id], fields: [interviewId])
+  interviewId        String
+  videoId            String?             @unique
+  video              Video?              @relation(references: [id], fields: [videoId])
+  transcriptId       String?             @unique
+  transcript         Transcript?         @relation(references: [id], fields: [transcriptId])
+  tags               Tag[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @default(now()) @updatedAt
+  originSuggestion   SuggestedHighlight? @relation(fields: [originSuggestionId], references: [id])
+  originSuggestionId String?             @unique
+}
+
+model Session {
+  id        String   @id
+  session   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+enum AuthType {
+  local
+}
+
+model User {
+  id                      String                   @id @default(uuid())
+  email                   String                   @unique /// @encrypted
+  emailHash               String?                  @unique /// @encryption:hash(email)
+  fullName                String /// @encrypted
+  confirmed               Boolean                  @default(false)
+  interviews              Interview[]
+  roles                   WorkspaceRole[]
+  sourceAuths             ExternalAuth[]
+  identities              Identity[]
+  inviteTokens            WorkspaceInvite[]
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @default(now()) @updatedAt
+  notificationPreferences NotificationPreferences?
+  tagOrder                UserTagOrder[]
+}
+
+enum IdentityType {
+  password
+  zoom
+}
+
+model Identity {
+  token     String
+  userId    String
+  user      User         @relation(fields: [userId], references: [id])
+  type      IdentityType
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now()) @updatedAt
+
+  @@id([userId, type])
+  @@unique([type, token])
+}
+
+enum ExternalAuthTypes {
+  zoom
+  zoomV2
+}
+
+model ExternalAuth {
+  userId       String
+  type         ExternalAuthTypes
+  user         User              @relation(references: [id], fields: [userId])
+  authToken    String /// @encrypted
+  refreshToken String /// @encrypted
+  expiresAt    DateTime?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @default(now()) @updatedAt
+
+  @@id([userId, type])
+}
+
+model Workspace {
+  id                   String            @id @default(uuid())
+  name                 String
+  roles                WorkspaceRole[]
+  interviews           Interview[]
+  inviteTokens         WorkspaceInvite[]
+  publicInterviewLinks Boolean           @default(false)
+  ownedDomain          String?           @unique
+  tags                 Tag[]
+  projects             Project[]
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @default(now()) @updatedAt
+}
+
+model WorkspaceInvite {
+  token        String    @id
+  workspace    Workspace @relation(references: [id], fields: [workspaceId])
+  workspaceId  String
+  inviterId    String
+  isExpired    Boolean   @default(false)
+  inviteeEmail String?
+  isAccepted   Boolean   @default(false)
+  user         User      @relation(references: [id], fields: [inviterId])
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
+}
+
+enum RoleType {
+  admin
+  member
+}
+
+model WorkspaceRole {
+  userId      String
+  user        User      @relation(references: [id], fields: [userId])
+  workspaceId String
+  workspace   Workspace @relation(references: [id], fields: [workspaceId])
+  type        RoleType
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+
+  @@unique([userId, workspaceId])
+}
+
+model Participant {
+  id     String            @id @default(uuid())
+  name   String
+  groups TranscriptGroup[]
+}
+
+enum TagColor {
+  red
+  orange
+  yellow
+  green
+  indigo
+  sky
+  purple
+}
+
+model Tag {
+  id                  String               @id @default(uuid())
+  name                String
+  color               TagColor             @default(red)
+  workspace           Workspace            @relation(references: [id], fields: [workspaceId])
+  workspaceId         String
+  highlights          Highlight[]
+  suggestedHighlights SuggestedHighlight[]
+  userOrders          UserTagOrder[]
+  autoExtract         Boolean              @default(false)
+  description         String?
+  isDefault           Boolean              @default(false)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @default(now()) @updatedAt
+  projectTags         ProjectTags[]
+  emoji               String               @default("2b1c")
+}
+
+model NotificationPreferences {
+  id                 String   @id @default(uuid())
+  userId             String   @unique
+  user               User     @relation(references: [id], fields: [userId])
+  notificationEmails Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @default(now()) @updatedAt
+}
+
+model UserTagOrder {
+  id       String @id @default(uuid())
+  userId   String
+  user     User   @relation(references: [id], fields: [userId])
+  tagId    String
+  tag      Tag    @relation(references: [id], fields: [tagId])
+  position Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([userId, tagId])
+}
+
+enum SuggestedHighlightStatus {
+  pending
+  approved
+  rejected
+}
+
+model SuggestedHighlight {
+  id                 String                   @id @default(uuid())
+  highlightedRange   WordRange                @relation(references: [id], fields: [highlightedRangeId])
+  highlightedRangeId String                   @unique
+  interview          Interview                @relation(references: [id], fields: [interviewId])
+  interviewId        String
+  transcriptId       String                   @unique
+  transcript         Transcript               @relation(references: [id], fields: [transcriptId])
+  tags               Tag[]
+  status             SuggestedHighlightStatus
+  createdAt          DateTime                 @default(now())
+  updatedAt          DateTime                 @default(now()) @updatedAt
+  highlight          Highlight?
+}
+
+model Project {
+  id          String        @id @default(uuid())
+  name        String
+  description String        @default("")
+  interviews  Interview[]
+  workspace   Workspace     @relation(references: [id], fields: [workspaceId])
+  workspaceId String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now()) @updatedAt
+  projectTags ProjectTags[]
+}
+
+model ProjectTags {
+  id        String   @id @default(uuid())
+  projectId String
+  project   Project  @relation(references: [id], fields: [projectId])
+  tagId     String
+  tag       Tag      @relation(references: [id], fields: [tagId])
+  position  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([projectId, tagId])
+}
+
+enum RecorderType {
+  recall
+}
+
+enum RecordingTargetType {
+  zoom
+  zoomV2
+}
+
+enum RecorderStatus {
+  pending
+  recording
+  done
+}
+
+model Recorder {
+  id         String          @id @default(uuid())
+  externalId String?         @unique
+  error      String?
+  type       RecorderType
+  target     RecordingTarget @relation(fields: [targetId], references: [id])
+  targetId   String          @unique
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @default(now()) @updatedAt
+  Video      Video[]
+  status     RecorderStatus
+}
+
+model RecordingTarget {
+  id        String              @id @default(uuid())
+  type      RecordingTargetType
+  recorder  Recorder?
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @default(now()) @updatedAt
+}

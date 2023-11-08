@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Interview" ADD COLUMN     "recordingError" TEXT,
+ADD COLUMN     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

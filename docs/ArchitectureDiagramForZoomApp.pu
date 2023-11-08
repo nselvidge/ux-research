@@ -1,0 +1,28 @@
+@startuml DomainModel
+
+rectangle "Resonate Zoom App" as zoomApp
+rectangle "Resonate Web App" as webApp
+rectangle "Resonate API" as api
+
+rectangle "AWS S3" as s3
+rectangle "Assembly AI" as assembly
+rectangle "PostgreSQL" as postgres
+rectangle "Zoom Client" as zoom
+rectangle "Zoom API" as zoomAPI
+rectangle "Recall AI" as recall
+
+zoomApp ---> api: graphql api
+zoomApp -> zoom: displays in zoom client
+webApp --> api: graphql api
+webApp -> s3: plays video file
+api -> s3: stores video file
+api --> assembly: transcribes video file
+api --> postgres: stores application data
+
+zoom ---> api: requests resonate zoom app\nprovides user context
+api --> zoomAPI: requests meetings, user info,\n and authenticates for zoom sign in
+
+api ---> recall: manages meeting bot join/leave\n and retrieves video recording
+
+
+@enduml

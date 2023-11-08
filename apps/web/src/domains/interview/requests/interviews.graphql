@@ -1,0 +1,308 @@
+query listInterviews($workspaceId: String!, $projectId: String) {
+  listInterviews(workspaceId: $workspaceId, projectId: $projectId) {
+    id
+    name
+    date
+    creator {
+      id
+      fullName
+    }
+    highlights {
+      id
+    }
+    pendingHighlights {
+      id
+    }
+    recording {
+      id
+      previewImageUrl
+      previewGifUrl
+    }
+  }
+}
+
+query interviewHighlights($id: String!) {
+  interview(id: $id) {
+    id
+    currentUserCanEdit
+    highlights {
+      id
+      originSuggestionId
+      tags {
+        id
+        name
+        color
+        emoji
+      }
+      highlightedRange {
+        text
+        startWord {
+          id
+          start
+          end
+          wordNumber
+          groupNumber
+        }
+        endWord {
+          id
+          start
+          end
+          wordNumber
+          groupNumber
+        }
+      }
+    }
+
+    suggestedHighlights {
+      id
+      tags {
+        id
+        name
+        color
+        emoji
+      }
+      highlightedRange {
+        text
+        startWord {
+          id
+          start
+          end
+          wordNumber
+          groupNumber
+        }
+        endWord {
+          id
+          start
+          end
+          wordNumber
+          groupNumber
+        }
+      }
+    }
+  }
+}
+
+query interviewHighlightsWithTranscript($id: String!) {
+  interview(id: $id) {
+    id
+    currentUserCanEdit
+    transcript {
+      id
+      isPending
+      groups {
+        id
+        groupNumber
+        start
+        end
+        text
+        speaker {
+          id
+          name
+        }
+        words {
+          id
+          wordNumber
+          groupNumber
+          start
+          end
+          text
+        }
+      }
+    }
+    recording {
+      id
+      url
+    }
+    highlights {
+      id
+      originSuggestionId
+      tags {
+        id
+        name
+        color
+        emoji
+      }
+      highlightedRange {
+        text
+        startWord {
+          id
+          start
+          end
+          wordNumber
+          groupNumber
+        }
+        endWord {
+          id
+          start
+          end
+          wordNumber
+          groupNumber
+        }
+      }
+    }
+  }
+}
+
+query interview($id: String!) {
+  interview(id: $id) {
+    id
+    workspace {
+      id
+      tags {
+        id
+        name
+        color
+        isDefault
+        emoji
+      }
+    }
+    name
+    date
+    currentUserCanEdit
+    transcript {
+      id
+      isPending
+      groups {
+        id
+        groupNumber
+        start
+        end
+        text
+        speaker {
+          id
+          name
+        }
+        words {
+          id
+          wordNumber
+          groupNumber
+          start
+          end
+          text
+        }
+      }
+    }
+    recording {
+      id
+      url
+      previewImageUrl
+    }
+    projectId
+  }
+}
+
+mutation updateInterviewName($id: String!, $name: String!) {
+  updateInterviewName(id: $id, name: $name) {
+    id
+    name
+  }
+}
+
+mutation archiveInterview($interviewId: String!) {
+  archiveInterview(interviewId: $interviewId) {
+    id
+  }
+}
+
+mutation updateSpeakerName(
+  $interviewId: String!
+  $speakerId: String!
+  $newName: String!
+) {
+  updateSpeakerName(
+    interviewId: $interviewId
+    speakerId: $speakerId
+    newName: $newName
+  ) {
+    id
+    name
+  }
+}
+
+mutation updateHighlight(
+  $interviewId: String!
+  $highlightId: String!
+  $startTime: Int!
+  $endTime: Int!
+) {
+  updateHighlight(
+    interviewId: $interviewId
+    highlightId: $highlightId
+    startTime: $startTime
+    endTime: $endTime
+  ) {
+    id
+    highlightedRange {
+      text
+      startWord {
+        id
+        start
+        end
+        wordNumber
+        groupNumber
+      }
+      endWord {
+        id
+        start
+        end
+        wordNumber
+        groupNumber
+      }
+    }
+  }
+}
+
+query highlight($id: String!) {
+  highlight(id: $id) {
+    id
+    interview {
+      id
+      name
+      date
+      highlights {
+        id
+      }
+    }
+    tags {
+      id
+      name
+      color
+      emoji
+    }
+    transcript {
+      id
+      isPending
+      groups {
+        id
+        groupNumber
+        start
+        end
+        text
+        speaker {
+          id
+          name
+        }
+        words {
+          id
+          wordNumber
+          groupNumber
+          start
+          end
+          text
+        }
+      }
+    }
+    video {
+      id
+      url
+      previewImageUrl
+    }
+  }
+}
+
+query minimalInterview($id: String!) {
+  interview(id: $id) {
+    id
+    name
+  }
+}

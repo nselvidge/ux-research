@@ -1,0 +1,20 @@
+query me {
+  me {
+    id
+    fullName
+    email
+    pendingWorkspaceInvites {
+      workspaceId
+      workspaceName
+      inviterName
+    }
+    workspaces {
+      id
+      name
+      roles {
+        type
+        userId
+      }
+    }
+  }
+}

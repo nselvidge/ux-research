@@ -1,0 +1,36 @@
+overwrite: true
+schema: "apps/server/src/global/typedefs.ts"
+documents: "apps/web/src/**/*.graphql"
+generates:
+  apps/server/src/global/generated/graphql.ts:
+    config:
+      contextType: ../typedefs#ApolloContext
+      mappers:
+        Interview: ../../domains/interview/interactors/serializers/SerializedInterview#GatewayInterview
+        Highlight: ../../domains/interview/interactors/serializers/SerializedHighlight#GatewayHighlight
+        SuggestedHighlight: ../../domains/interview/interactors/serializers/SerializedSuggestedHighlight#PersistenceSuggestedHighlight
+        PendingHighlight: ../../domains/interview/interactors/serializers/SerializedHighlight#MinimalSerializedHighlight
+        Video: ../../domains/video/interactors/serializers/SerializedVideo#GatewayVideo
+        Transcript: ../../domains/interview/interactors/serializers/SerializedTranscript#SerializedTranscript
+        TranscriptGroup: ../../domains/interview/interactors/serializers/SerializedTranscript#SerializedTranscriptGroup
+        TranscriptWord: ../../domains/interview/interactors/serializers/SerializedTranscript#SerializedTranscriptWord
+        User: ../../domains/auth/interactors/serializers/SerializedUser#ExternalUser
+        Project: ../../domains/interview/interactors/serializers/SerializedProject#PersistenceProject
+        WorkspaceRole: ../../domains/auth/interactors/serializers/SerializedWorkspace#PersistenceWorkspaceUserRoles
+        Workspace: ../../domains/auth/interactors/serializers/SerializedWorkspace#GatewayWorkspace
+        NotificationPreferences: ../../domains/notifications/interactors/serializers/SerializedNotificationPreferences#PersistenceNotificationPreference
+      enumsAsTypes: true
+    plugins:
+      - "typescript"
+      - "typescript-resolvers"
+  apps/web/src/global/generated/graphql.ts:
+    plugins:
+      - typescript
+  apps/web/src/:
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.tsx
+      baseTypesPath: global/generated/graphql.ts
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo

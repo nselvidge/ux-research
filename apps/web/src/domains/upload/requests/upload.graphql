@@ -1,0 +1,14 @@
+mutation createUploadUrl(
+  $workspaceId: String!
+  $interviewName: String!
+  $interviewDate: Date!
+) {
+  createUploadUrl(
+    workspaceId: $workspaceId
+    interviewName: $interviewName
+    interviewDate: $interviewDate
+  ) {
+    interviewId
+    uploadUrl
+  }
+}

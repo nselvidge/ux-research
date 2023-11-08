@@ -1,0 +1,26 @@
+<html>
+  <body>
+    <p>Hey {{fullName}} 👋</p>
+    <p>Your user interview
+      <a href="{{url}}"><b>{{interviewName}}</b></a>
+       is now transcribed and ready to review.
+      {{#if highlightCount}}
+      You captured {{highlightCount}} highlights. Click the link below to watch the interview and the highlights:</p>
+      {{else}}
+      Click the link below to watch the interview:</p>
+      {{/if}}
+
+    {{#if previewImageUrl}}
+      <a style="display:block; margin: 10px auto; width: 350px;height: 200px;"><img style="width: 350px;height: 200px;border-radius:12px" src="{{previewImageUrl}}" /></a>
+    {{/if}}
+
+    <p><a style="background: #317358; color: white; display: block; width: 250px; text-align: center; border-radius: 12px; padding: 6px; margin: 10px auto; vertical-align: middle;" href="{{url}}">View your interview</a></p>
+
+    <p>Best,<br />
+      The Resonate Team</p>
+
+    <br />
+    <br />
+    <p style="font-size:8px;width:100%;text-align:center;"><a href="https://www.resonateapp.com/workspace/user-preferences">Notification Preferences</a></p>
+  </body>
+</html>

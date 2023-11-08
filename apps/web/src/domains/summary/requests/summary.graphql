@@ -1,0 +1,77 @@
+query interviewSummary($id: String!) {
+  interview(id: $id) {
+    id
+    name
+    date
+    currentUserCanEdit
+    summary {
+      id
+      text
+    }
+    creator {
+      id
+      fullName
+    }
+    recording {
+      id
+      url
+      previewImageUrl
+    }
+    workspace {
+      id
+      name
+      tags {
+        isDefault
+        id
+        name
+        color
+      }
+    }
+    highlights {
+      id
+      tags {
+        id
+        name
+        color
+      }
+      video {
+        id
+        url
+        previewImageUrl
+        previewGifUrl
+      }
+      interview {
+        id
+        name
+        date
+      }
+      transcript {
+        id
+        groups {
+          id
+          text
+          speaker {
+            id
+            name
+          }
+          words {
+            id
+            text
+            start
+            end
+          }
+        }
+      }
+    }
+  }
+}
+
+mutation updateSummary($interviewId: String!, $text: String!) {
+  updateInterviewSummary(interviewId: $interviewId, text: $text) {
+    id
+    summary {
+      id
+      text
+    }
+  }
+}

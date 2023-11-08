@@ -1,0 +1,20 @@
+query isConnectedToZoom {
+  isConnectedToZoom
+}
+
+query getZoomRecordingList {
+  zoomRecordingList {
+    totalCount
+    recordings {
+      externalId
+      label
+      startTime
+    }
+  }
+}
+
+mutation importInterviewFromZoom($externalId: String!, $workspaceId: String!) {
+  importInterviewFromZoom(externalId: $externalId, workspaceId: $workspaceId) {
+    id
+  }
+}

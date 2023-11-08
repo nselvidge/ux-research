@@ -1,0 +1,26 @@
+{
+  "extends": "ts-node/node16/tsconfig.json",
+  "ts-node": { "files": true },
+  "compilerOptions": {
+    "lib": ["es2022"],
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "incremental": true,
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "outDir": "./dist",
+    "target": "es2022",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "paths": {
+      "@root/*": ["src/*"]
+    }
+  },
+  "include": ["./src/**/*", "./global/typings.d.ts", "./src/**/*.json"],
+  "exclude": ["./node_modules", "../../node_modules", "./src/global/generated/prisma/*.json"]
+}

@@ -1,0 +1,228 @@
+mutation createPendingInterview(
+  $externalId: String!
+  $workspaceId: String!
+  $projectId: String
+) {
+  createPendingInterview(
+    zoomId: $externalId
+    workspaceId: $workspaceId
+    projectId: $projectId
+  ) {
+    id
+    name
+    workspace {
+      id
+      tags {
+        id
+        name
+        color
+        isDefault
+        emoji
+      }
+    }
+    pendingHighlights {
+      id
+      timestamp
+      tags {
+        id
+        isDefault
+        name
+        color
+        emoji
+      }
+    }
+  }
+}
+mutation recordInterview(
+  $externalId: String!
+  $workspaceId: String!
+  $projectId: String
+) {
+  recordInterview(
+    zoomId: $externalId
+    workspaceId: $workspaceId
+    projectId: $projectId
+  ) {
+    id
+    name
+    workspace {
+      id
+      tags {
+        id
+        name
+        color
+        isDefault
+        emoji
+      }
+    }
+    pendingHighlights {
+      id
+      timestamp
+      tags {
+        id
+        name
+        isDefault
+        color
+        emoji
+      }
+    }
+  }
+}
+
+query getPendingInterview($externalId: String!) {
+  getPendingInterview(externalId: $externalId) {
+    id
+    name
+    projectId
+    workspace {
+      id
+      tags {
+        id
+        name
+        isDefault
+        color
+        emoji
+      }
+      projects {
+        id
+        name
+        projectTags {
+          position
+          tag {
+            id
+            name
+            color
+            isDefault
+            emoji
+          }
+        }
+      }
+    }
+    pendingHighlights {
+      id
+      timestamp
+      tags {
+        id
+        name
+        isDefault
+        color
+        emoji
+      }
+    }
+  }
+}
+
+query getPendingInterviewByRecordingTarget($externalId: String!) {
+  recordingStatus(meetingId: $externalId)
+  getPendingInterviewByRecordingTarget(externalId: $externalId) {
+    id
+    name
+    projectId
+    workspace {
+      id
+      tags {
+        id
+        name
+        isDefault
+        color
+        emoji
+      }
+      projects {
+        id
+        name
+        projectTags {
+          position
+          tag {
+            id
+            name
+            color
+            isDefault
+            emoji
+          }
+        }
+      }
+    }
+    pendingHighlights {
+      id
+      timestamp
+      tags {
+        id
+        name
+        isDefault
+        color
+        emoji
+      }
+    }
+  }
+}
+
+mutation createTimestampHighlight(
+  $interviewId: String!
+  $timestamp: Date!
+  $tagId: String
+) {
+  createTimestampHighlight(
+    interviewId: $interviewId
+    timestamp: $timestamp
+    tagId: $tagId
+  ) {
+    id
+    workspace {
+      id
+      tags {
+        id
+        isDefault
+        name
+        color
+        emoji
+      }
+    }
+    pendingHighlights {
+      id
+      timestamp
+      tags {
+        id
+        name
+        isDefault
+        color
+        emoji
+      }
+    }
+  }
+}
+
+mutation updateUserTagOrder($tagIds: [String!]!, $workspaceId: String!) {
+  updateUserTagOrder(tagIds: $tagIds, workspaceId: $workspaceId) {
+    id
+    tags {
+      isDefault
+      id
+      name
+      color
+      emoji
+    }
+  }
+}
+
+mutation removeInterviewFromProject($interviewId: String!) {
+  removeInterviewFromProject(interviewId: $interviewId) {
+    id
+    name
+    projectId
+    pendingHighlights {
+      id
+      timestamp
+      tags {
+        id
+        name
+        isDefault
+        color
+        emoji
+      }
+    }
+  }
+}
+
+mutation stopRecording($meetingId: String!) {
+  stopRecording(meetingId: $meetingId)
+}

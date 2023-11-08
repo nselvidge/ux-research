@@ -1,0 +1,15 @@
+build:
+  docker:
+    web: Dockerfile.prod
+    video-worker: Dockerfile.prod
+    heartbeat-worker: Dockerfile.prod
+    analysis: ./apps/analysis/Dockerfile
+release:
+  command:
+    - npm run release
+  image: web
+run:
+  web: npm run start:backend:prod
+  video-worker: npm run start:backend:video-worker
+  heartbeat-worker: npm run start:backend:heartbeat-worker
+  analysis: python -m lib.main

@@ -1,0 +1,16 @@
+query notificationPreferences {
+  me {
+    id
+    notificationPreferences {
+      id
+      notificationEmails
+    }
+  }
+}
+
+mutation updateEmailPreferences($notificationEmails: Boolean!) {
+  updateEmailPreference(notificationEmails: $notificationEmails) {
+    id
+    notificationEmails
+  }
+}

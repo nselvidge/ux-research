@@ -1,0 +1,151 @@
+query workspace($id: String!) {
+  workspace(id: $id) {
+    id
+    name
+    currentUserInviteToken
+    publicInterviewLinks
+    pendingInvites {
+      id
+      email
+      role
+    }
+    tags {
+      id
+      name
+      color
+      isDefault
+      emoji
+    }
+    roles {
+      type
+      user {
+        id
+        fullName
+        email
+      }
+    }
+  }
+}
+
+query tagHighlightCounts($workspaceId: String!) {
+  getTagHighlightCounts(workspaceId: $workspaceId) {
+    tagId
+    highlightCount
+  }
+}
+
+mutation createInviteToken($workspaceId: String!) {
+  createInviteToken(workspaceId: $workspaceId)
+}
+
+mutation updateWorkspaceName($id: String!, $name: String!) {
+  updateWorkspaceName(id: $id, name: $name) {
+    id
+    name
+  }
+}
+
+query searchUsers($emailQuery: String!) {
+  searchUsersByEmail(emailQuery: $emailQuery) {
+    id
+    fullName
+    email
+  }
+}
+
+mutation addMemberToWorkspace($workspaceId: String!, $memberId: String!) {
+  addMemberToWorkspace(workspaceId: $workspaceId, memberId: $memberId) {
+    id
+    roles {
+      type
+      user {
+        id
+        fullName
+        email
+      }
+    }
+  }
+}
+
+mutation updatePublicInterviewLinks(
+  $workspaceId: String!
+  $publicInterviewLinks: Boolean!
+) {
+  updatePublicInterviewLinks(
+    workspaceId: $workspaceId
+    publicInterviewLinks: $publicInterviewLinks
+  ) {
+    id
+    publicInterviewLinks
+  }
+}
+
+query workspaceWithProjects($workspaceId: String!) {
+  workspace(id: $workspaceId) {
+    id
+    name
+    tags {
+      id
+      name
+      color
+      isDefault
+      emoji
+    }
+    projects {
+      id
+      name
+      description
+      projectTags {
+        position
+        tag {
+          id
+          name
+          color
+          isDefault
+          emoji
+        }
+      }
+    }
+  }
+}
+
+mutation sendInviteEmail($workspaceId: String!, $email: String!) {
+  sendInviteEmail(workspaceId: $workspaceId, email: $email) {
+    id
+    pendingInvites {
+      id
+      email
+      role
+    }
+    roles {
+      type
+      user {
+        id
+        fullName
+        email
+      }
+    }
+  }
+}
+
+mutation acceptInvite($workspaceId: String!) {
+  acceptInvite(workspaceId: $workspaceId) {
+    id
+    pendingWorkspaceInvites {
+      workspaceName
+      workspaceId
+      inviterName
+    }
+  }
+}
+
+mutation rejectInvite($workspaceId: String!) {
+  rejectInvite(workspaceId: $workspaceId) {
+    id
+    pendingWorkspaceInvites {
+      workspaceName
+      workspaceId
+      inviterName
+    }
+  }
+}

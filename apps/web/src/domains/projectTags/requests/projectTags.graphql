@@ -1,0 +1,63 @@
+query projectTags($projectId: String!) {
+  project(id: $projectId) {
+    id
+    projectTags {
+      position
+      tag {
+        id
+        name
+        color
+        isDefault
+        emoji
+      }
+    }
+  }
+}
+
+mutation addProjectTag($projectId: String!, $tagId: String!) {
+  addProjectTagToProject(projectId: $projectId, tagId: $tagId) {
+    id
+    projectTags {
+      position
+      tag {
+        id
+        name
+        color
+        isDefault
+        emoji
+      }
+    }
+  }
+}
+
+mutation removeProjectTag($projectId: String!, $tagId: String!) {
+  removeProjectTagFromProject(projectId: $projectId, tagId: $tagId) {
+    id
+    projectTags {
+      position
+      tag {
+        id
+        name
+        color
+        isDefault
+        emoji
+      }
+    }
+  }
+}
+
+mutation updateProjectTagPositions($projectId: String!, $tagIds: [String!]!) {
+  updateProjectTagPositions(projectId: $projectId, tagIds: $tagIds) {
+    id
+    projectTags {
+      position
+      tag {
+        id
+        name
+        color
+        isDefault
+        emoji
+      }
+    }
+  }
+}

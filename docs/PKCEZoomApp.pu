@@ -1,0 +1,55 @@
+@startuml PKCE Zoom App
+title PKCE OAuth2 Flow with Zoom
+
+actor User
+participant Browser as JS
+participant Server as Node
+participant "Zoom Auth\nServer" as ZoomAS
+participant "Zoom API\nServer" as ZoomAPI
+
+User -> JS : Initiate OAuth Flow
+activate JS
+
+JS -> Node : Send request for\nauthentication
+activate Node
+
+Node -> Node : Generate code_verifier\n& code_challenge
+Node -> JS : Send code_challenge\n& redirect_uri
+
+deactivate Node
+activate JS
+
+JS -> ZoomAS : Send Auth Request\n(code_challenge, redirect_uri)
+activate ZoomAS
+
+ZoomAS -> User : Authenticate & consent
+activate User
+
+User -->> ZoomAS : Consent
+
+deactivate User
+activate ZoomAS
+
+ZoomAS -> JS : Send Auth code
+deactivate ZoomAS
+activate JS
+
+JS -> Node : Send Auth code
+deactivate JS
+activate Node
+
+Node -> ZoomAS : Send Auth code\n& code_verifier
+activate ZoomAS
+
+ZoomAS -> Node : Send Access token
+deactivate ZoomAS
+activate Node
+
+Node -> ZoomAPI : Access Zoom resources\nwith Access token
+activate ZoomAPI
+
+ZoomAPI --> Node : Send requested data
+deactivate ZoomAPI
+deactivate Node
+
+@enduml

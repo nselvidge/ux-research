@@ -1,0 +1,46 @@
+mutation deleteTag($tagId: String!) {
+  deleteTag(tagId: $tagId) {
+    id
+    tags {
+      id
+    }
+  }
+}
+
+mutation updateTagName($tagId: String!, $name: String!) {
+  updateTagName(tagId: $tagId, name: $name) {
+    id
+    name
+  }
+}
+
+mutation updateTagColor($tagId: String!, $color: TagColor!) {
+  updateTagColor(tagId: $tagId, color: $color) {
+    id
+    color
+  }
+}
+
+mutation updateTagEmoji($tagId: String!, $emoji: String!) {
+  updateTagEmoji(tagId: $tagId, emoji: $emoji) {
+    id
+    emoji
+  }
+}
+
+query workspaceTagDetails($id: String!) {
+  workspace(id: $id) {
+    tags {
+      id
+      name
+      color
+      emoji
+      isDefault
+    }
+  }
+  getTagHighlightCounts(workspaceId: $id) {
+    tagId
+    highlightCount
+  }
+  getTaglessHighlightCounts(workspaceId: $id)
+}

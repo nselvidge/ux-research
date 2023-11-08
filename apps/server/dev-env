@@ -1,0 +1,46 @@
+# default env values
+
+DB_URL="postgresql://admin:password@db:5432/resonate?schema=public"
+LOG_LEVEL="debug"
+PRISMA_FIELD_ENCRYPTION_KEY=k1.aesgcm256.oUnHeUr3cp_1DhIIqj7x5IhFe4u3szgfQBL1pD950i8=
+
+# Shared tokens from the repository's codespaces secrets
+
+RECALL_TOKEN=${RECALL_TOKEN}
+RECALL_NATIVE_TOKEN=${RECALL_NATIVE_TOKEN}
+
+ASSEMBLY_TOKEN=${ASSEMBLY_TOKEN}
+
+AWS_REGION="us-west-1"
+AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+
+MUX_TOKEN_ID=${MUX_TOKEN_ID}
+MUX_TOKEN_SECRET=${MUX_TOKEN_SECRET}
+MUX_SIGNING_KEY=${MUX_SIGNING_KEY}
+MUX_PRIVATE_KEY=${MUX_PRIVATE_KEY}
+
+SENDGRID_API_KEY=${SENDGRID_API_KEY}
+
+# Each developer should have their own Zoom credentials and NGROK URL
+
+# Since the zoom app can only be configured with one redirect URL
+
+# we need to use a different app for each developer
+
+ZOOM_ID=${ZOOM_ID}
+ZOOM_SECRET=${ZOOM_SECRET}
+ZOOM_VERIFICATION_SECRET=${ZOOM_VERIFICATION_SECRET}
+
+# When we release a new version of the zoom app, we are given a new set of credentials
+
+# we need to support both the old and the new credentials
+
+ZOOM_ID_V2=${ZOOM_ID_V2}
+ZOOM_SECRET_V2=${ZOOM_SECRET_V2}
+ZOOM_VERIFICATION_SECRET_V2=${ZOOM_VERIFICATION_SECRET_V2}
+
+REDIRECT_URL=https://${NGROK_HOST}
+HOST=${NGROK_HOST}
+
+JWT_SECRET="a very secret string"

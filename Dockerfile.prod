@@ -1,0 +1,19 @@
+FROM node:18.11.0 AS base
+
+RUN apt-get update && apt-get install -y ffmpeg
+
+WORKDIR /project
+
+FROM base AS dependencies
+
+
+COPY packages/zoom-client packages/zoom-client
+COPY apps/server apps/server
+COPY package.json .
+
+COPY package-lock.json .
+
+RUN npm ci --production --non-interactive
+RUN npm run build
+
+CMD ["npm", "run", "start:backend:prod"]

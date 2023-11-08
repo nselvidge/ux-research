@@ -1,0 +1,629 @@
+<html><head><meta
+      http-equiv="Content-Type"
+      content="text/html; charset=utf-8"
+    /><title>How to use Resonate</title><style>
+      /* cspell:disable-file */ /* webkit printing magic: print all background
+      colors */ html { -webkit-print-color-adjust: exact; } * { box-sizing:
+      border-box; -webkit-print-color-adjust: exact; } html, body { margin: 0;
+      padding: 0; } @media only screen { body { margin: 2em auto; max-width:
+      900px; color: rgb(55, 53, 47); } } body { line-height: 1.5; } a, a.visited
+      { color: inherit; text-decoration: underline; } .pdf-relative-link-path {
+      font-size: 80%; color: #444; } h1, h2, h3 { letter-spacing: -0.01em;
+      line-height: 1.2; font-weight: 600; margin-bottom: 0; } .page-title {
+      font-size: 2.5rem; font-weight: 700; margin-top: 0; margin-bottom: 0.75em;
+      } h1 { font-size: 1.875rem; margin-top: 1.875rem; } h2 { font-size:
+      1.5rem; margin-top: 1.5rem; } h3 { font-size: 1.25rem; margin-top:
+      1.25rem; } .source { border: 1px solid #ddd; border-radius: 3px; padding:
+      1.5em; word-break: break-all; } .callout { border-radius: 3px; padding:
+      1rem; } figure { margin: 1.25em 0; page-break-inside: avoid; } figcaption
+      { opacity: 0.5; font-size: 85%; margin-top: 0.5em; } mark {
+      background-color: transparent; } .indented { padding-left: 1.5em; } hr {
+      background: transparent; display: block; width: 100%; height: 1px;
+      visibility: visible; border: none; border-bottom: 1px solid rgba(55, 53,
+      47, 0.09); } img { max-width: 100%; } @media only print { img {
+      max-height: 100vh; object-fit: contain; } } @page { margin: 1in; }
+      .collection-content { font-size: 0.875rem; } .column-list { display: flex;
+      justify-content: space-between; } .column { padding: 0 1em; }
+      .column:first-child { padding-left: 0; } .column:last-child {
+      padding-right: 0; } .table_of_contents-item { display: block; font-size:
+      0.875rem; line-height: 1.3; padding: 0.125rem; }
+      .table_of_contents-indent-1 { margin-left: 1.5rem; }
+      .table_of_contents-indent-2 { margin-left: 3rem; }
+      .table_of_contents-indent-3 { margin-left: 4.5rem; }
+      .table_of_contents-link { text-decoration: none; opacity: 0.7;
+      border-bottom: 1px solid rgba(55, 53, 47, 0.18); } table, th, td { border:
+      1px solid rgba(55, 53, 47, 0.09); border-collapse: collapse; } table {
+      border-left: none; border-right: none; } th, td { font-weight: normal;
+      padding: 0.25em 0.5em; line-height: 1.5; min-height: 1.5em; text-align:
+      left; } th { color: rgba(55, 53, 47, 0.6); } ol, ul { margin: 0;
+      margin-block-start: 0.6em; margin-block-end: 0.6em; } li > ol:first-child,
+      li > ul:first-child { margin-block-start: 0.6em; } ul > li { list-style:
+      disc; } ul.to-do-list { text-indent: -1.7em; } ul.to-do-list > li {
+      list-style: none; } .to-do-children-checked { text-decoration:
+      line-through; opacity: 0.375; } ul.toggle > li { list-style: none; } ul {
+      padding-inline-start: 1.7em; } ul > li { padding-left: 0.1em; } ol {
+      padding-inline-start: 1.6em; } ol > li { padding-left: 0.2em; } .mono ol {
+      padding-inline-start: 2em; } .mono ol > li { text-indent: -0.4em; }
+      .toggle { padding-inline-start: 0em; list-style-type: none; } /* Indent
+      toggle children */ .toggle > li > details { padding-left: 1.7em; } .toggle
+      > li > details > summary { margin-left: -1.1em; } .selected-value {
+      display: inline-block; padding: 0 0.5em; background: rgba(206, 205, 202,
+      0.5); border-radius: 3px; margin-right: 0.5em; margin-top: 0.3em;
+      margin-bottom: 0.3em; white-space: nowrap; } .collection-title { display:
+      inline-block; margin-right: 1em; } .simple-table { margin-top: 1em;
+      font-size: 0.875rem; empty-cells: show; } .simple-table td { height: 29px;
+      min-width: 120px; } .simple-table th { height: 29px; min-width: 120px; }
+      .simple-table-header-color { background: rgb(247, 246, 243); color: black;
+      } .simple-table-header { font-weight: 500; } time { opacity: 0.5; } .icon
+      { display: inline-block; max-width: 1.2em; max-height: 1.2em;
+      text-decoration: none; vertical-align: text-bottom; margin-right: 0.5em; }
+      img.icon { border-radius: 3px; } .user-icon { width: 1.5em; height: 1.5em;
+      border-radius: 100%; margin-right: 0.5rem; } .user-icon-inner { font-size:
+      0.8em; } .text-icon { border: 1px solid #000; text-align: center; }
+      .page-cover-image { display: block; object-fit: cover; width: 100%;
+      max-height: 30vh; } .page-header-icon { font-size: 3rem; margin-bottom:
+      1rem; } .page-header-icon-with-cover { margin-top: -0.72em; margin-left:
+      0.07em; } .page-header-icon img { border-radius: 3px; } .link-to-page {
+      margin: 1em 0; padding: 0; border: none; font-weight: 500; } p > .user {
+      opacity: 0.5; } td > .user, td > time { white-space: nowrap; }
+      input[type="checkbox"] { transform: scale(1.5); margin-right: 0.6em;
+      vertical-align: middle; } p { margin-top: 0.5em; margin-bottom: 0.5em; }
+      .image { border: none; margin: 1.5em 0; padding: 0; border-radius: 0;
+      text-align: center; } .code, code { background: rgba(135, 131, 120, 0.15);
+      border-radius: 3px; padding: 0.2em 0.4em; border-radius: 3px; font-size:
+      85%; tab-size: 2; } code { color: #eb5757; } .code { padding: 1.5em 1em; }
+      .code-wrap { white-space: pre-wrap; word-break: break-all; } .code > code
+      { background: none; padding: 0; font-size: 100%; color: inherit; }
+      blockquote { font-size: 1.25em; margin: 1em 0; padding-left: 1em;
+      border-left: 3px solid rgb(55, 53, 47); } .bookmark { text-decoration:
+      none; max-height: 8em; padding: 0; display: flex; width: 100%;
+      align-items: stretch; } .bookmark-title { font-size: 0.85em; overflow:
+      hidden; text-overflow: ellipsis; height: 1.75em; white-space: nowrap; }
+      .bookmark-text { display: flex; flex-direction: column; } .bookmark-info {
+      flex: 4 1 180px; padding: 12px 14px 14px; display: flex; flex-direction:
+      column; justify-content: space-between; } .bookmark-image { width: 33%;
+      flex: 1 1 180px; display: block; position: relative; object-fit: cover;
+      border-radius: 1px; } .bookmark-description { color: rgba(55, 53, 47,
+      0.6); font-size: 0.75em; overflow: hidden; max-height: 4.5em; word-break:
+      break-word; } .bookmark-href { font-size: 0.75em; margin-top: 0.25em; }
+      .sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI
+      Emoji", "Segoe UI Symbol"; } .code { font-family: "SFMono-Regular", Menlo,
+      Consolas, "PT Mono", "Liberation Mono", Courier, monospace; } .serif {
+      font-family: Lyon-Text, Georgia, ui-serif, serif; } .mono { font-family:
+      iawriter-mono, Nitti, Menlo, Courier, monospace; } .pdf .sans {
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI
+      Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK
+      JP'; } .pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif,
+      -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color
+      Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji',
+      'Noto Color Emoji', 'Noto Sans CJK SC'; } .pdf:lang(zh-TW) .sans {
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI
+      Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK
+      TC'; } .pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif,
+      -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color
+      Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji',
+      'Noto Color Emoji', 'Noto Sans CJK KR'; } .pdf .code { font-family: Source
+      Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono",
+      Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK
+      JP'; } .pdf:lang(zh-CN) .code { font-family: Source Code Pro,
+      "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier,
+      monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+      .pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular",
+      Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace,
+      'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; } .pdf:lang(ko-KR)
+      .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas,
+      "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color
+      Emoji', 'Noto Sans Mono CJK KR'; } .pdf .serif { font-family: PT Serif,
+      Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto
+      Serif CJK JP'; } .pdf:lang(zh-CN) .serif { font-family: PT Serif,
+      Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto
+      Serif CJK SC'; } .pdf:lang(zh-TW) .serif { font-family: PT Serif,
+      Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto
+      Serif CJK TC'; } .pdf:lang(ko-KR) .serif { font-family: PT Serif,
+      Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto
+      Serif CJK KR'; } .pdf .mono { font-family: PT Mono, iawriter-mono, Nitti,
+      Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono
+      CJK JP'; } .pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono,
+      Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto
+      Sans Mono CJK SC'; } .pdf:lang(zh-TW) .mono { font-family: PT Mono,
+      iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color
+      Emoji', 'Noto Sans Mono CJK TC'; } .pdf:lang(ko-KR) .mono { font-family:
+      PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto
+      Color Emoji', 'Noto Sans Mono CJK KR'; } .highlight-default { color:
+      rgba(55, 53, 47, 1); } .highlight-gray { color: rgba(120, 119, 116, 1);
+      fill: rgba(120, 119, 116, 1); } .highlight-brown { color: rgba(159, 107,
+      83, 1); fill: rgba(159, 107, 83, 1); } .highlight-orange { color:
+      rgba(217, 115, 13, 1); fill: rgba(217, 115, 13, 1); } .highlight-yellow {
+      color: rgba(203, 145, 47, 1); fill: rgba(203, 145, 47, 1); }
+      .highlight-teal { color: rgba(68, 131, 97, 1); fill: rgba(68, 131, 97, 1);
+      } .highlight-blue { color: rgba(51, 126, 169, 1); fill: rgba(51, 126, 169,
+      1); } .highlight-purple { color: rgba(144, 101, 176, 1); fill: rgba(144,
+      101, 176, 1); } .highlight-pink { color: rgba(193, 76, 138, 1); fill:
+      rgba(193, 76, 138, 1); } .highlight-red { color: rgba(212, 76, 71, 1);
+      fill: rgba(212, 76, 71, 1); } .highlight-gray_background { background:
+      rgba(241, 241, 239, 1); } .highlight-brown_background { background:
+      rgba(244, 238, 238, 1); } .highlight-orange_background { background:
+      rgba(251, 236, 221, 1); } .highlight-yellow_background { background:
+      rgba(251, 243, 219, 1); } .highlight-teal_background { background:
+      rgba(237, 243, 236, 1); } .highlight-blue_background { background:
+      rgba(231, 243, 248, 1); } .highlight-purple_background { background:
+      rgba(244, 240, 247, 0.8); } .highlight-pink_background { background:
+      rgba(249, 238, 243, 0.8); } .highlight-red_background { background:
+      rgba(253, 235, 236, 1); } .block-color-default { color: inherit; fill:
+      inherit; } .block-color-gray { color: rgba(120, 119, 116, 1); fill:
+      rgba(120, 119, 116, 1); } .block-color-brown { color: rgba(159, 107, 83,
+      1); fill: rgba(159, 107, 83, 1); } .block-color-orange { color: rgba(217,
+      115, 13, 1); fill: rgba(217, 115, 13, 1); } .block-color-yellow { color:
+      rgba(203, 145, 47, 1); fill: rgba(203, 145, 47, 1); } .block-color-teal {
+      color: rgba(68, 131, 97, 1); fill: rgba(68, 131, 97, 1); }
+      .block-color-blue { color: rgba(51, 126, 169, 1); fill: rgba(51, 126, 169,
+      1); } .block-color-purple { color: rgba(144, 101, 176, 1); fill: rgba(144,
+      101, 176, 1); } .block-color-pink { color: rgba(193, 76, 138, 1); fill:
+      rgba(193, 76, 138, 1); } .block-color-red { color: rgba(212, 76, 71, 1);
+      fill: rgba(212, 76, 71, 1); } .block-color-gray_background { background:
+      rgba(241, 241, 239, 1); } .block-color-brown_background { background:
+      rgba(244, 238, 238, 1); } .block-color-orange_background { background:
+      rgba(251, 236, 221, 1); } .block-color-yellow_background { background:
+      rgba(251, 243, 219, 1); } .block-color-teal_background { background:
+      rgba(237, 243, 236, 1); } .block-color-blue_background { background:
+      rgba(231, 243, 248, 1); } .block-color-purple_background { background:
+      rgba(244, 240, 247, 0.8); } .block-color-pink_background { background:
+      rgba(249, 238, 243, 0.8); } .block-color-red_background { background:
+      rgba(253, 235, 236, 1); } .select-value-color-pink { background-color:
+      rgba(245, 224, 233, 1); } .select-value-color-purple { background-color:
+      rgba(232, 222, 238, 1); } .select-value-color-green { background-color:
+      rgba(219, 237, 219, 1); } .select-value-color-gray { background-color:
+      rgba(227, 226, 224, 1); } .select-value-color-opaquegray {
+      background-color: rgba(255, 255, 255, 0.0375); }
+      .select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+      .select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+      .select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+      .select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+      .select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+      .checkbox { display: inline-flex; vertical-align: text-bottom; width: 16;
+      height: 16; background-size: 16px; margin-left: 2px; margin-right: 5px; }
+      .checkbox-on { background-image:
+      url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+      } .checkbox-off { background-image:
+      url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+      }
+
+    </style></head><body><article
+      id="96b3ac22-7d42-4c8b-a843-d2c2eb405c86"
+      class="page sans"
+    ><header><h1 class="page-title">How to use Resonate</h1></header><div
+        class="page-body"
+      ><h3 id="73f1032a-190a-4776-b45e-9c0e9dec210c" class=""><details
+            open=""
+          ><summary>FAQ<strong>:</strong></summary></details></h3><div
+          class="indented"
+        ><ol
+            type="1"
+            id="69fd464c-fa80-4b4e-a9fa-82928162ce89"
+            class="numbered-list"
+            start="1"
+          ><li>What do I need to do to use Resonate app?<ol
+                type="a"
+                id="9eb3ae38-a0fe-4e26-b2b5-ac4ffccc9653"
+                class="numbered-list"
+                start="1"
+              ><li>You need to be on a paid Zoom plan. Resonate doesn’t yet work
+                  with Basic Zoom Plan</li></ol><ol
+                type="a"
+                id="b6fea319-d161-4b28-9cd6-2d283f85c48a"
+                class="numbered-list"
+                start="2"
+              ><li>You need to be the organizer/host of the meeting to use
+                  Resonate Zoom app. You can’t use Resonate Zoom app as a
+                  participant/invitee to the meeting.</li></ol></li></ol><ol
+            type="1"
+            id="a33d42bc-b465-4aa5-a64b-bf7a1170e94e"
+            class="numbered-list"
+            start="2"
+          ><li>How many meetings/recordings can I use with Resonate Zoom app?<ol
+                type="a"
+                id="a07c03e8-3983-459b-806d-e9133952adea"
+                class="numbered-list"
+                start="1"
+              ><li>Unlimited, no restrictions. </li></ol></li></ol><ol
+            type="1"
+            id="6625c0f5-d9d5-4943-95cc-f4b5da00e227"
+            class="numbered-list"
+            start="3"
+          ><li>Can I add my teammates to use Resonate and watch highlights and
+              recordings?<ol
+                type="a"
+                id="f596deb9-6395-4c36-a76f-bc5ed5e0bc72"
+                class="numbered-list"
+                start="1"
+              ><li>Yes, you can invite as many teammates as you would like.
+                  Note: they all have to sign up with their company email to
+                  access the recordings and highlights.
+                </li></ol></li></ol><ol
+            type="1"
+            id="6601485c-db25-4dde-980e-1fba6c4e7def"
+            class="numbered-list"
+            start="4"
+          ><li>How do I add my teammates to Resonate?<ol
+                type="a"
+                id="3b39b308-2bb4-4dc3-80d5-8f5dae415178"
+                class="numbered-list"
+                start="1"
+              ><li>You can go to “Manage” in your Resonate web app at
+                  <a href="http://Resonateapp.com">Resonateapp.com</a>
+                  → Users → Click Copy Invite Link → Share the link with your
+                  teammates and they can now join the workspace and view all the
+                  recordings that you did.
+                </li></ol></li></ol><ol
+            type="1"
+            id="d210a3cc-366f-4179-bf04-01dd7ba28db5"
+            class="numbered-list"
+            start="5"
+          ><li>Can my teammates use Resonate?<ol
+                type="a"
+                id="f838a6ee-043e-493a-a062-66b937a03013"
+                class="numbered-list"
+                start="1"
+              ><li>Yes, your team mates can use Resonate as well.
+                </li></ol></li></ol><ol
+            type="1"
+            id="9181d133-755f-4f59-b6c5-f9bbf0a0135f"
+            class="numbered-list"
+            start="6"
+          ><li>Do all my team mates need to have Resonate Zoom app to view the
+              interview highlights?<ol
+                type="a"
+                id="fbc069ac-cf3a-4b7a-99d3-9f59faa2eaf6"
+                class="numbered-list"
+                start="1"
+              ><li>No, they can simply sign up for Resonate and use the web app
+                  to view all recordings that their company has done using
+                  Resonate app.</li></ol></li></ol></div><h3
+          id="f492da25-25ce-47b8-8af7-0101a1eecbea"
+          class=""
+        ><details open=""><summary>INSTALLATION<strong
+              >:</strong></summary></details></h3><div class="indented"><ol
+            type="1"
+            id="c362569c-27b7-4556-abc9-285f30554497"
+            class="numbered-list"
+            start="1"
+          ><li>How do I install Resonate?<ol
+                type="a"
+                id="81257c45-eecb-45a3-9b1e-dd658b2e4053"
+                class="numbered-list"
+                start="1"
+              ><li>You can also use “Apps” option in Zoom client to find
+                  Resonate and sign up/install.<ol
+                    type="i"
+                    id="91f3aaf1-3124-4eb9-898c-e095d2f096fa"
+                    class="numbered-list"
+                    start="1"
+                  ><li>Open Zoom client app → click on the Apps icon on the
+                      right bottom.</li></ol><ol
+                    type="i"
+                    id="c41afe05-0e1d-4de2-a94b-cffaed4b5470"
+                    class="numbered-list"
+                    start="2"
+                  ><li>Search Resonate → click </li></ol><ol
+                    type="i"
+                    id="2ef99e01-ff0a-4011-87a6-78f858620255"
+                    class="numbered-list"
+                    start="3"
+                  ><li>Sign in with Zoom</li></ol><ol
+                    type="i"
+                    id="a56f4a38-bb20-43a0-8f13-1e64f4373e93"
+                    class="numbered-list"
+                    start="4"
+                  ><li>You need to Confirm permissions, and click Authorize</li></ol><ol
+                    type="i"
+                    id="57f07979-5d23-4afe-aadf-123226dbce8f"
+                    class="numbered-list"
+                    start="5"
+                  ><li>Once installed, go to Zoom client and launch on the
+                      Resonate app on the right. Click Record interview to start
+                      using it and tag the conversations.</li></ol><ol
+                    type="i"
+                    id="5a3ae62c-0f26-438d-8fdf-441e70588c06"
+                    class="numbered-list"
+                    start="6"
+                  ><li>When meeting has ended, you will receive an email
+                      notification in a few mins when your transcription + video
+                      is ready.
+                    </li></ol></li></ol></li></ol></div><h3
+          id="efa5c3c1-43dc-49f6-88ca-e48900bb4344"
+          class=""
+        ><details open=""><summary><strong
+              >USAGE:</strong></summary></details></h3><div class="indented"><ol
+            type="1"
+            id="7df735af-542b-4c61-acd1-212fa6c229e6"
+            class="numbered-list"
+            start="1"
+          ><li>How do I start the interview using Resonate Zoom app?<ol
+                type="a"
+                id="00b418fc-77aa-44e3-96bb-14e4aadf6a57"
+                class="numbered-list"
+                start="1"
+              ><li>Start your Zoom meeting like you usually do from your
+                  calendar.
+                </li></ol><ol
+                type="a"
+                id="e9e74375-4ab5-4fdf-8bf8-1cf910d5212a"
+                class="numbered-list"
+                start="2"
+              ><li>Once the Zoom client is open, click the “Apps” icon in bottom
+                  navigation and a right panel will slide open.</li></ol><ol
+                type="a"
+                id="e1ad9981-2417-4af3-8b2a-a5bd5ff7f3f9"
+                class="numbered-list"
+                start="3"
+              ><li>Select the Resonate app and you will see a button “Record
+                  Interview”</li></ol><ol
+                type="a"
+                id="74d731e2-52cd-4553-90b2-0bcf7f23db94"
+                class="numbered-list"
+                start="4"
+              ><li>Click the “Record the interview” button from Resonate app.</li></ol></li></ol><ol
+            type="1"
+            id="1ae0ce36-5ab8-429f-b90f-9676c76dacc8"
+            class="numbered-list"
+            start="2"
+          ><li>How do I highlight/tag during Zoom user interview?<ol
+                type="a"
+                id="8378d4ed-d306-4bc1-b2ce-61914c29beed"
+                class="numbered-list"
+                start="1"
+              ><li>Click on appropriate tags like Highlight, Feedback, Painpoint
+                  during the customer conversation that will annotate/tag and
+                  timestamp the moment 15 second before and 15 second after. You
+                  can view this later when your interview is done.</li></ol><ol
+                type="a"
+                id="57512e58-866c-4759-b5b3-08c2c5f2de41"
+                class="numbered-list"
+                start="2"
+              ><li>You can also use keyboard shortcut of CMD S for Mac or CTRL S
+                  for Windows to create a highlight
+                </li></ol></li></ol><ol
+            type="1"
+            id="d9c6960c-a2c0-4bb3-bff7-56536f782681"
+            class="numbered-list"
+            start="3"
+          ><li>How do I know highlight is created?<ol
+                type="a"
+                id="e82e513e-df9c-43f5-8da7-54f0f308b744"
+                class="numbered-list"
+                start="1"
+              ><li>You will see an incremental counter go up (”1, 2, 3…”) as you
+                  click the appropriate tag.
+                </li></ol></li></ol><p
+            id="9ee83b8d-ed8c-40d7-982a-f360edad6e76"
+            class=""
+          >
+          </p><ul id="6478b2f6-60da-4fd3-82c4-759cbb1e61a4" class="toggle"><li
+            ><details open=""><summary><strong>Post interview:
+                    reviewing/analyzing the interview and sharing important
+                    highlights with your teammates</strong></summary><ol
+                  type="1"
+                  id="4ccd5d50-c2c8-4829-95b6-ddc84a5cc3bb"
+                  class="numbered-list"
+                  start="1"
+                ><li>When can I review the highlights from the user interview?<ol
+                      type="a"
+                      id="aea76bd4-33e0-4b4c-b4d3-f5a1a6d934d0"
+                      class="numbered-list"
+                      start="1"
+                    ><li>Right after you end the Zoom meeting. You will receive
+                        an email notification when video, transcription, time
+                        stamped highlights/tags are ready. This email has a link
+                        that takes you to Resonate web app to analyze/review the
+                        interview and share highlights with your teammates.
+                      </li></ol></li></ol><ol
+                  type="1"
+                  id="4da94e30-9682-49ed-a941-2bd4b9aff275"
+                  class="numbered-list"
+                  start="2"
+                ><li>Workspace view:
+                    <ol
+                      type="a"
+                      id="4ea35925-6389-4e42-8527-5661a64209d5"
+                      class="numbered-list"
+                      start="1"
+                    ><li>Interview section: This view contains all the
+                        interview/customer conversations done across your
+                        company. This makes is easy to access all customer
+                        conversations across the company instantly no matter who
+                        does it.
+                      </li></ol><ol
+                      type="a"
+                      id="e94b8adf-0a6a-4393-8a98-23fa05df37d0"
+                      class="numbered-list"
+                      start="2"
+                    ><li>Top highlights section: this section contains
+                        aggregated view of the most highlighted tags across all
+                        your interviews. You can view, share and find patterns
+                        in one click.</li></ol></li></ol><ol
+                  type="1"
+                  id="312fc9b6-6643-4307-a7b4-3f13f1567766"
+                  class="numbered-list"
+                  start="3"
+                ><li>Interview page:<ol
+                      type="a"
+                      id="a3e79dc2-ed49-4125-acdf-139442839112"
+                      class="numbered-list"
+                      start="1"
+                    ><li>Filter transcript with specific tags: you can use the
+                        tags in interview page to find the specific moments in
+                        the interview. Ex: All “painpoint” tags.
+                      </li></ol><ol
+                      type="a"
+                      id="b1e24787-41ca-4733-bfe9-de816f23c17e"
+                      class="numbered-list"
+                      start="2"
+                    ><li>Sharing specific highlights/tags: you can hover over
+                        the highlights/tags and click “Share highlight”. This
+                        copies the snippet link and you can now share it in
+                        slack, email or DM to quickly share the voice of the
+                        customer.
+                      </li></ol><ol
+                      type="a"
+                      id="74e33819-0f04-4e8e-aacf-4f2087926f3f"
+                      class="numbered-list"
+                      start="3"
+                    ><li>Navigation: you can click “Next Highlight” or “Previous
+                        highlight” to navigate between important moments in the
+                        interview.</li></ol></li></ol><p
+                  id="d901e88a-b7f9-4c95-81ad-e8dfaae9c20e"
+                  class=""
+                >
+                </p></details></li></ul><p
+            id="a56189b5-8c97-4a13-a776-ef10475e7c3d"
+            class=""
+          >
+          </p></div><h3
+          id="8d3b77e2-56a5-4d9d-bf30-b85c9d51b21d"
+          class=""
+        ><details open=""><summary><strong
+              >UNINSTALLATION:</strong></summary></details></h3><div
+          class="indented"
+        ><ol
+            type="1"
+            id="284e56d7-4488-4f5f-9c76-b4316e8b9b91"
+            class="numbered-list"
+            start="1"
+          ><li>Sign in to your Zoom account and go to Zoom Marketplace option</li></ol><ol
+            type="1"
+            id="aa16eef0-badb-4cd1-aed3-0524c305c7b5"
+            class="numbered-list"
+            start="2"
+          ><li>Manage → Installed Apps and find Resonate</li></ol><ol
+            type="1"
+            id="0ba60970-bb19-4168-8e6d-ff4e79cd2996"
+            class="numbered-list"
+            start="3"
+          ><li>Click Uninstall </li></ol><ol
+            type="1"
+            id="c90402df-0e17-4b11-8661-15724251cca8"
+            class="numbered-list"
+            start="4"
+          ><li>It will ask you to confirm to Uninstall</li></ol><p
+            id="337b0dc4-fe75-4c17-b280-8ee2ff909ad7"
+            class=""
+          >
+          </p><ul id="494b5e18-d91f-4e93-90ef-7a0e0f8de94b" class="toggle"><li
+            ><details open=""><summary><strong>Post interview:
+                    reviewing/analyzing the interview and sharing important
+                    highlights with your teammates</strong></summary><ol
+                  type="1"
+                  id="1771c2a7-102e-4cb7-90e9-eaa056c35b3f"
+                  class="numbered-list"
+                  start="1"
+                ><li>When can I review the highlights from the user interview?<ol
+                      type="a"
+                      id="f92a1567-a5a7-4181-836d-2c1b81d01e88"
+                      class="numbered-list"
+                      start="1"
+                    ><li>Right after you end the Zoom meeting. You will receive
+                        an email notification when video, transcription, time
+                        stamped highlights/tags are ready. This email has a link
+                        that takes you to Resonate web app to analyze/review the
+                        interview and share highlights with your teammates.
+                      </li></ol></li></ol><ol
+                  type="1"
+                  id="0e9cef3a-2bcc-4aec-b7be-489fa8b0a815"
+                  class="numbered-list"
+                  start="2"
+                ><li>Workspace view:
+                    <ol
+                      type="a"
+                      id="d0a11562-54a1-4f2a-91ef-c794b4d66585"
+                      class="numbered-list"
+                      start="1"
+                    ><li>Interview section: This view contains all the
+                        interview/customer conversations done across your
+                        company. This makes is easy to access all customer
+                        conversations across the company instantly no matter who
+                        does it.
+                      </li></ol><ol
+                      type="a"
+                      id="0f2210be-a678-499e-9f88-99dcb922e41f"
+                      class="numbered-list"
+                      start="2"
+                    ><li>Top highlights section: this section contains
+                        aggregated view of the most highlighted tags across all
+                        your interviews. You can view, share and find patterns
+                        in one click.</li></ol></li></ol><ol
+                  type="1"
+                  id="4f6df6f5-0c88-4835-b6ea-7d8a5741fc5f"
+                  class="numbered-list"
+                  start="3"
+                ><li>Interview page:<ol
+                      type="a"
+                      id="c535d7d3-fd48-4c92-aa52-bb1f2aa8d4b6"
+                      class="numbered-list"
+                      start="1"
+                    ><li>Filter transcript with specific tags: you can use the
+                        tags in interview page to find the specific moments in
+                        the interview. Ex: All “painpoint” tags.
+                      </li></ol><ol
+                      type="a"
+                      id="e8f6a2b6-7e50-4741-b96a-f29b17284bad"
+                      class="numbered-list"
+                      start="2"
+                    ><li>Sharing specific highlights/tags: you can hover over
+                        the highlights/tags and click “Share highlight”. This
+                        copies the snippet link and you can now share it in
+                        slack, email or DM to quickly share the voice of the
+                        customer.
+                      </li></ol><ol
+                      type="a"
+                      id="db9068e8-6ad8-46d7-9cb0-48c7635377f3"
+                      class="numbered-list"
+                      start="3"
+                    ><li>Navigation: you can click “Next Highlight” or “Previous
+                        highlight” to navigate between important moments in the
+                        interview.</li></ol></li></ol><p
+                  id="bea93faf-c127-4c53-be19-4040ce6116ac"
+                  class=""
+                >
+                </p></details></li></ul><p
+            id="b4cac038-0122-470e-a066-4f4f75486533"
+            class=""
+          >
+          </p></div><h3
+          id="62f0eac5-4525-4eef-a93f-6ababbf5878f"
+          class=""
+        ><details open=""><summary><strong
+              >TROUBLESHOOTING:</strong></summary></details></h3><div
+          class="indented"
+        ><ol
+            type="1"
+            id="1ca8748d-965c-487c-ade9-2cb76fbeb6fa"
+            class="numbered-list"
+            start="1"
+          ><li>If you don’t see Resonate Zoom app loading from within the Zoom
+              client, it means that you are not logged into your Zoom web
+              account. Go to Zoom on web and login again → Restart Zoom client
+              and you should now see Resonate Zoom App on your right side
+              Navigation.</li></ol><p
+            id="ede70c88-c108-469b-8eda-39f2ed446b6f"
+            class=""
+          >
+          </p><p id="b98bc3d2-2672-435a-9403-97793a5bf80a" class="">
+          </p></div><h3
+          id="7af9e57a-126a-4b1d-8545-f31970dbfa05"
+          class=""
+        ><details open=""><summary><strong
+              >SUPPORT:</strong></summary></details></h3><div
+          class="indented"
+        ><ol
+            type="1"
+            id="95da8986-2648-4708-9382-eedf123c4c7c"
+            class="numbered-list"
+            start="1"
+          ><li>You can reach out to us at help@resonateapp.com and we will get
+              back to you ASAP.
+            </li></ol><p id="f01bc122-16a7-4d1b-b92f-71051aa43531" class="">
+          </p><p id="28995e43-dab9-4dcb-9af5-d2a09aa1abec" class="">
+          </p></div></div></article></body></html>

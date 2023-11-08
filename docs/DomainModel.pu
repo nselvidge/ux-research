@@ -1,0 +1,96 @@
+@startuml DomainModel
+
+title Resonate Domain model
+
+namespace VideoInteractors {
+  class RecorderInteractor {
+    joinMeeting(meetingUrl: string)
+  }
+  interface RecordingSourceProvider
+  interface RecorderProvider
+
+  RecorderInteractor --> RecordingSourceProvider
+  RecorderInteractor --> RecorderProvider
+  RecorderInteractor ---> Video.Recorder : creates
+}
+
+namespace InterviewInteractors  {
+  class AttendeeInteractor {
+    + attendInterview(meetingUrl: string)
+  }
+
+  class InterviewerInteractor {
+    + createPendingInterview()
+    + getInterviewByMeetingId(meetingId: string)
+  }
+  
+  InterviewerInteractor <-- AttendeeInteractor : uses
+
+  AttendeeInteractor --> Interview.InterviewSource : creates
+  VideoInteractors.RecorderInteractor <-- AttendeeInteractor: uses
+}
+
+namespace Video {
+  class Video {
+    recorderId
+  }
+  class EditableAsset
+  class PlayableAsset
+  class Recorder {
+    + id
+    + externalId
+    + type
+    + recordingTarget
+  }
+  class RecordingTarget {
+    + id
+    + type
+  }
+  RecordingTarget <- Recorder 
+  Recorder <- Video
+  EditableAsset <-- Video
+  PlayableAsset <-- Video
+  Interview.Highlight --> Video
+}
+
+namespace Interview {
+  class Interview {
+    + source
+    + recordingId
+    + suggestedHighlights
+    + transcript
+    + highlights
+  }
+
+  Interview -> Video.Video
+  SuggestedHighlight <- Interview
+  Highlight <-- Interview
+  Interview -> Transcript
+  InterviewSource <-- Interview
+
+  class Highlight {
+    + videoId
+    + transcript
+  }
+
+  Highlight --> Transcript
+
+  class Transcript
+
+  class InterviewSource {
+    + externalId
+    + platform
+  }
+
+  class SuggestedHighlight
+
+  class AttendedMeeting {
+    + meetingId
+    + userId
+  }
+
+}
+
+
+
+@enduml

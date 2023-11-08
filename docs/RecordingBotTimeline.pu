@@ -1,0 +1,47 @@
+@startuml
+
+title Adding a Recording Bot to a Zoom Meeting
+
+actor User
+entity "Zoom\nMeeting" as Zoom
+entity "Resonate\nServer" as Resonate
+entity "Recall\nAPI" as Recall
+entity Bot
+
+User -> Resonate: Create Interview
+activate Resonate
+Resonate -> Recall: Use Create Bot endpoint\n(Recall Key, Meeting URL)
+Recall --> Resonate: Return Bot ID
+Resonate -> Resonate: Create Video With Recorder ID
+Resonate -> Resonate: Create Pending Interview
+Resonate --> User: Return Recorder Data
+deactivate Resonate
+
+User -> Resonate: Poll for PendingInterview
+Resonate --> User: Return null
+
+Recall -> Bot: Create Bot
+Bot -> Zoom: Join meeting
+Recall -> Resonate: Bot Joined Webhook
+Resonate -> Resonate: Create PendingInterview
+
+User -> Resonate: Poll for PendingInterview
+Resonate --> User: Return PendingInterview
+
+User -> Zoom: Talk in the meeting
+Zoom --> Bot: Record meeting
+User -> Zoom: End meeting
+Zoom --> Bot: Leave meeting
+Bot -> Recall: Process video recording
+Recall --> Bot: Change Bot status to "done"
+Recall -> Resonate: Bot Done Webhook
+
+activate Resonate
+Resonate -> Recall: Use Retrieve Bot endpoint\n(Recall Key, Bot ID)
+Recall --> Resonate: Return video URL
+Resonate -> Recall: Retreive video
+Recall --> Resonate: Return video
+Resonate -> Resonate: Process video
+Resonate -> Resonate: Update Interview
+
+@enduml

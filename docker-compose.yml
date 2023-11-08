@@ -1,0 +1,95 @@
+version: "3.9"
+services:
+  web:
+    image: node:18.11.0
+    volumes:
+      - ./:/root
+    ports:
+      - 8081:8081
+    command: "npm run start"
+    working_dir: "/root/apps/web"
+  server:
+    build: .
+    env_file:
+      - "./apps/server/dev-env"
+    depends_on:
+      amqp:
+        condition: service_healthy
+      db:
+        condition: service_started
+      analysis:
+        condition: service_started
+      video_worker:
+        condition: service_started
+      heartbeat_worker:
+        condition: service_started
+    volumes:
+      - ./:/root
+    ports:
+      - 8080:8080
+    command: "npm run dev:docker"
+    working_dir: "/root/apps/server"
+
+  analysis:
+    env_file:
+      - "./apps/analysis/dev-env"
+    environment:
+      - "CLOUDAMQP_URL=amqp://amqp:5672"
+    build: ./apps/analysis
+    volumes:
+      - ./apps/analysis:/analysis
+    working_dir: "/analysis"
+    ports:
+      - 8082:8082
+    command: "python -m lib.main"
+    depends_on:
+      amqp:
+        condition: service_healthy
+
+  video_worker:
+    build: .
+    env_file:
+      - "./apps/server/dev-env"
+    depends_on:
+      amqp:
+        condition: service_healthy
+      db:
+        condition: service_started
+    volumes:
+      - ./:/root
+    command: "npm run worker:docker"
+    working_dir: "/root/apps/server"
+
+  heartbeat_worker:
+    build: .
+    env_file:
+      - "./apps/server/dev-env"
+    depends_on:
+      amqp:
+        condition: service_healthy
+      db:
+        condition: service_started
+    volumes:
+      - ./:/root
+    command: "npm run heartbeat:docker"
+    working_dir: "/root/apps/server"
+
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: resonate
+  amqp:
+    image: rabbitmq:3-management
+    container_name: "rabbitmq"
+    ports:
+      - 5672:5672
+      - 15672:15672
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 5s
+      timeout: 30s
+      retries: 5

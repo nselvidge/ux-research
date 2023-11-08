@@ -1,0 +1,156 @@
+query workspaceProjects($workspaceId: String!) {
+  workspace(id: $workspaceId) {
+    id
+    projects {
+      id
+      name
+      description
+      interviewCount
+    }
+  }
+}
+
+mutation createProject(
+  $workspaceId: String!
+  $name: String!
+  $description: String!
+) {
+  createProject(
+    workspaceId: $workspaceId
+    name: $name
+    description: $description
+  ) {
+    id
+    name
+    description
+    interviewCount
+  }
+}
+
+query project($projectId: String!) {
+  project(id: $projectId) {
+    id
+    name
+    description
+    interviewCount
+    highlightCounts {
+      tagId
+      highlightCount
+    }
+    taglessHighlightCounts
+    interviewTags {
+      id
+      name
+      color
+      emoji
+      isDefault
+    }
+    interviews {
+      id
+      name
+      date
+      highlights {
+        id
+      }
+      pendingHighlights {
+        id
+      }
+      creator {
+        fullName
+      }
+      recording {
+        id
+        previewGifUrl
+        previewImageUrl
+      }
+    }
+  }
+}
+
+mutation moveInterviewsToProject(
+  $interviewIds: [String!]!
+  $projectId: String!
+) {
+  moveInterviewsToProject(interviewIds: $interviewIds, projectId: $projectId) {
+    id
+    name
+    description
+    interviewCount
+    highlightCounts {
+      tagId
+      highlightCount
+    }
+    taglessHighlightCounts
+    interviewTags {
+      id
+      name
+      color
+      emoji
+      isDefault
+    }
+    interviews {
+      id
+      projectId
+      name
+      date
+      highlights {
+        id
+      }
+      pendingHighlights {
+        id
+      }
+      creator {
+        fullName
+      }
+      recording {
+        id
+        previewGifUrl
+        previewImageUrl
+      }
+    }
+  }
+}
+
+mutation updateProject(
+  $projectId: String!
+  $name: String
+  $description: String
+) {
+  updateProject(projectId: $projectId, name: $name, description: $description) {
+    id
+    name
+    description
+    interviewCount
+    highlightCounts {
+      tagId
+      highlightCount
+    }
+    taglessHighlightCounts
+    interviewTags {
+      id
+      name
+      color
+      emoji
+      isDefault
+    }
+    interviews {
+      id
+      name
+      date
+      highlights {
+        id
+      }
+      pendingHighlights {
+        id
+      }
+      creator {
+        fullName
+      }
+      recording {
+        id
+        previewGifUrl
+        previewImageUrl
+      }
+    }
+  }
+}
